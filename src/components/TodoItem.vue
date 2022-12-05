@@ -29,13 +29,18 @@ export default {
     border: 1px solid #2e2e2e;
     border-radius: 10px;
     padding: 20px;
-    width: 70%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 .deleteButton {
-    padding: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 30px;
+    height: 30px;
     border: 1px solid red;
     border-radius: 50%;
     color: red;

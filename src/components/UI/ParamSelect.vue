@@ -1,6 +1,5 @@
 <template>
-  <select @change="changeOption"> 
-    <!--  v-model="modelValue" вверху не работает -->
+  <select class="stylizedSelect" :value="modelValue" @change="changeOption"> 
     <option disabled value="">Выберите из списка</option>
     <option 
       v-for="option in options" 
@@ -16,9 +15,7 @@
 export default {
   name: 'param-select',
   props: {
-    modelValue: {
-      type: String
-    },
+    modelValue: [String],
     options: {
       type: Array,
       default: () => []
@@ -33,5 +30,8 @@ export default {
 </script>
 
 <style>
-
+.stylizedSelect {
+  border-radius: 10px;
+  padding: 5px 10px;
+}
 </style>

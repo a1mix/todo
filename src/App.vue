@@ -1,16 +1,18 @@
 <template>
-  <!-- <div v-show="!userAutorised">
-    <button @click="(this.userAutorised=true)">Войти</button>
-  </div> -->
-
-  <div v-show="!userAutorised" id="app">
+  <div class="container">
     <h1>Это ваша страница с заметками!</h1>
+    <stylized-input
+      v-model="searchQuery"
+      placeholder="Search..."
+    />
+
     <div class="app__btns">
       <stylized-button
         @click="showDialog"
         > 
         Добавить тудушку 
       </stylized-button>
+      <!-- isn't working  -->
       <param-select 
         v-model="selectedSort"
         :options="sortOptions"
@@ -22,11 +24,11 @@
     </dialog-window>
     <hr>
     <todo-list 
-      :list="list" 
+      :list="sortedAndSearchedTodos" 
       @deleteTodo="deleteTodo"
       v-if="!isTodosLoading"
     />
-    <div v-else>Идет загрузка</div>
+    <div v-else>Идет загрузка...</div>
   </div>
 </template>
 
@@ -46,12 +48,12 @@ export default {
     return {
       list: [],
       dialogVisible: false,
-      userAutorised: false,
       isTodosLoading: true,
       selectedSort: '',
+      searchQuery: '',
       sortOptions: [
-        {value: 'title', name: "По названию"}, 
-        {value: 'body', name: "По содержимому"}
+        {value: 'alphavet', name: "По алфавиту"}, 
+        {value: 'length', name: "По длине"}
       ]
     }
   },
@@ -79,6 +81,16 @@ export default {
   },
   mounted() {
     this.fetchTodos()
+  },
+  computed: {
+    sortedTodos() {
+      return [...this.list]
+    },
+    sortedAndSearchedTodos() { 
+      return this.sortedTodos.filter(todo => todo.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
+    }
+  },
+  watch: {
   }
 }
 
@@ -90,7 +102,7 @@ export default {
     padding: 0;
     box-sizing: border-box;
 }
-#app {
+.container {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 500;
   -webkit-font-smoothing: antialiased;
@@ -99,6 +111,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
   padding: 20px;
+  width: 70%;
   display: flex;
   flex-direction: column;
   justify-content: center;

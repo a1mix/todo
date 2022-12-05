@@ -19,5 +19,6 @@ export default {
 <style>
 .stylizedInput {
     padding: 10px;
+    border-radius: 10px;
 }
 </style>
