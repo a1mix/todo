@@ -19,12 +19,16 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 nav {
   padding: 30px;
   background: #2e2e2e;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 nav a {
