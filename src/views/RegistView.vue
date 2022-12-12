@@ -1,21 +1,17 @@
 <template>
-  <form action="" @submit.prevent>
+  <form @submit.prevent>
     <stylized-input
-     @input="checkUserLogin"
      type="text"
      placeholder="Введите логин..."
+     v-model="login"
     />
     <stylized-input
      type="password"
-     name=""
-     id=""
      placeholder="Введите пароль..."
      v-model="password"
     />
     <stylized-input
      type="password"
-     name=""
-     id=""
      placeholder="Подтвердите пароль"
      v-model="repeatedPassword"
     />
@@ -33,13 +29,6 @@ export default {
         }
     },
     methods: {
-        checkUserLogin() {
-            // if the user is not logged in db
-            // do something
-            if (this.login = '') {
-                
-            }
-        },
         registUser() {
             console.log(this.login, this.password, this.repeatedPassword)
         }
