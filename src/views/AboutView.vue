@@ -1,5 +1,16 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <TodoForm />
+  <TodoList />
 </template>
+
+<script>
+import TodoForm from '@/components/TodoForm.vue';
+import TodoList from '@/components/TodoList.vue';
+export default {
+  components: {TodoForm, TodoList}
+}
+</script>
+
+<style>
+
+</style>
