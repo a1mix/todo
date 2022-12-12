@@ -1,8 +1,9 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link>
-    <router-link v-if="isUserAuthorized" to="/todos">Todos</router-link>
-    <router-link to="/auth">Auth</router-link>
+    <router-link to="/">Главное</router-link>
+    <router-link v-if="isUserAuthorized" to="/todos">Задачи</router-link>
+    <router-link to="/auth">Вход</router-link>
+    <router-link to="/regist">Регистрация</router-link>
     <stylized-button
       v-if="isUserAuthorized"
       class="exitBtn"
