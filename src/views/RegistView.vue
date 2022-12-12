@@ -5,8 +5,20 @@
      type="text"
      placeholder="Введите логин..."
     />
-    <stylized-input type="password" name="" id="" placeholder="Введите пароль..."/>
-    <stylized-input type="password" name="" id="" placeholder="Подтвердите пароль"/>
+    <stylized-input
+     type="password"
+     name=""
+     id=""
+     placeholder="Введите пароль..."
+     v-model="password"
+    />
+    <stylized-input
+     type="password"
+     name=""
+     id=""
+     placeholder="Подтвердите пароль"
+     v-model="repeatedPassword"
+    />
     <stylized-button @click="registUser">Зарегистрироваться</stylized-button>
   </form>
 </template>
@@ -15,7 +27,9 @@
 export default {
     data() {
         return {
-            login: ''
+            login: '',
+            password: '',
+            repeatedPassword: ''
         }
     },
     methods: {
@@ -25,6 +39,9 @@ export default {
             if (this.login = '') {
                 
             }
+        },
+        registUser() {
+            console.log(this.login, this.password, this.repeatedPassword)
         }
     }
 
