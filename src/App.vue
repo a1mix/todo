@@ -1,8 +1,15 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link v-if="isUserAuthorized" to="/todos">Todos</router-link> | 
+    <router-link to="/">Home</router-link>
+    <router-link v-if="isUserAuthorized" to="/todos">Todos</router-link>
     <router-link to="/auth">Auth</router-link>
+    <stylized-button
+      v-if="isUserAuthorized"
+      class="exitBtn"
+      @click="userExit"
+    >
+      Выйти
+    </stylized-button>
   </nav>
   <router-view @authUser="openTodos"/>
 </template>
@@ -17,6 +24,9 @@ export default {
   methods: {
     openTodos() {
       this.isUserAuthorized = true
+    },
+    userExit() {
+      this.isUserAuthorized = false
     }
   }
 }
@@ -41,10 +51,13 @@ export default {
 }
 
 nav {
-  padding: 30px;
+  padding: 20px 30px;
+  align-items: center;
   background: #2e2e2e;
   margin-bottom: 20px;
   width: 100%;
+  display: flex;
+  gap: 20px;
 }
 
 nav a {
@@ -54,5 +67,9 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.exitBtn {
+  margin-left: auto;
 }
 </style>

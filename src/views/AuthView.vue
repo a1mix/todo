@@ -10,10 +10,17 @@
 export default {
   methods: {
     authUser() {
-      
-      // backend code this
 
-      this.$emit('authUser', this)
+      try {
+        // backend code this
+
+        this.$emit('authUser', this)
+      } catch (e) {
+        console.log(e.message)
+      }
+    
+
+      
     }
   }
 }
