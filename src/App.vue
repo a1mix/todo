@@ -1,11 +1,27 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> | 
+    <router-link v-if="isUserAuthorized" to="/todos">Todos</router-link> | 
     <router-link to="/auth">Auth</router-link>
   </nav>
-  <router-view/>
+  <router-view @authUser="openTodos"/>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      isUserAuthorized: false
+    }
+  },
+  methods: {
+    openTodos() {
+      this.isUserAuthorized = true
+    }
+  }
+}
+
+</script>
 
 <style>
 * {

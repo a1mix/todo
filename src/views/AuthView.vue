@@ -1,14 +1,21 @@
 <template>
   <form action="" @submit.prevent>
-    <stylized-input type="text" />
-    <stylized-input type="password" name="" id="" />
-    <stylized-button>Войти</stylized-button>
+    <stylized-input type="text" placeholder="Введите логин..."/>
+    <stylized-input type="password" name="" id="" placeholder="Введите пароль..."/>
+    <stylized-button @click="authUser">Войти</stylized-button>
   </form>
 </template>
 
 <script>
 export default {
+  methods: {
+    authUser() {
+      
+      // backend code this
 
+      this.$emit('authUser', this)
+    }
+  }
 }
 </script>
 
@@ -18,6 +25,6 @@ form {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 15px;
 }
 </style>
