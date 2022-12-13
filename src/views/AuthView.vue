@@ -11,10 +11,12 @@
      v-model="password"
     />
     <stylized-button @click="authUser">Войти</stylized-button>
+    <router-link to="/regist">Еще не заргестрированы?</router-link>
   </form>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -23,11 +25,12 @@ export default {
     }
   },
   methods: {
-    authUser() {
+    async authUser() {
       try {
-        // backend code this
-        console.log(this.login, this.password)
-        this.$emit('authUser', this)
+        const responce = await axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
+        console.log(responce.data)
+        
+        this.$emit('authUser', [this.login, this.password])
       } catch (e) {
         console.log(e.message)
       }

@@ -4,7 +4,9 @@
      type="text"
      placeholder="Введите логин..."
      v-model="login"
+     @input="checkLoginFromDb"
     />
+    <span v-if="!loginIsUnique">{{attentionText}}</span>
     <stylized-input
      type="password"
      placeholder="Введите пароль..."
@@ -15,7 +17,13 @@
      placeholder="Подтвердите пароль"
      v-model="repeatedPassword"
     />
-    <stylized-button @click="registUser">Зарегистрироваться</stylized-button>
+    <stylized-button
+     @click="registUser"
+     v-if="passwordTrue"
+     :style="registBtn"
+    >
+    Зарегистрироваться
+    </stylized-button>
   </form>
 </template>
 
@@ -25,15 +33,36 @@ export default {
         return {
             login: '',
             password: '',
-            repeatedPassword: ''
+            repeatedPassword: '',
+            loginIsUnique: true,
+            registBtn: {
+                opacity: 1
+            },
+            attentionText: 'Пользователь с таким ником уже существует'
         }
+    },
+    computed: {
+        passwordTrue() {
+            if (this.password == this.repeatedPassword) {
+                return this.registBtn.opacity = 1
+            }
+            return this.registBtn.opacity = 0.3
+        },
+        
     },
     methods: {
         registUser() {
             console.log(this.login, this.password, this.repeatedPassword)
-        }
-    }
-
+        },
+        checkLoginFromDb() {
+            if (this.login != "aimixess" && this.login != "ramilka") {
+               return this.loginIsUnique = true
+            }
+            this.loginIsUnique = false
+            
+            // backend code
+        },
+    },
 }
 </script>
 

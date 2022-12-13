@@ -2,15 +2,21 @@
   <nav>
     <router-link to="/">Главное</router-link>
     <router-link v-if="isUserAuthorized" to="/todos">Задачи</router-link>
-    <router-link to="/auth">Вход</router-link>
+    <router-link
+     v-if="!isUserAuthorized"
+     to="/auth"
+    >
+      Вход
+    </router-link>
     <router-link to="/regist">Регистрация</router-link>
-    <stylized-button
+    <router-link
       v-if="isUserAuthorized"
       class="exitBtn"
       @click="userExit"
+      to="/auth"
     >
       Выйти
-    </stylized-button>
+    </router-link>
   </nav>
   <router-view @authUser="openTodos"/>
 </template>
