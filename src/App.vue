@@ -18,23 +18,53 @@
       Выйти
     </router-link>
   </nav>
-  <router-view @authUser="openTodos"/>
+  <router-view
+   @authUser="openTodos"
+   @registUser="registUser"
+   :users="users"
+   :currentUserId="currentUserId"
+  />
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
-      isUserAuthorized: false
+      isUserAuthorized: false,
+      users: [],
+      currentUserId: 0
     }
   },
   methods: {
-    openTodos() {
+    openTodos(userId) {
       this.isUserAuthorized = true
+      this.currentUserId = userId
     },
     userExit() {
       this.isUserAuthorized = false
+      this.currentUserId = 0
+    },
+    
+    async fetchUsers() {
+        try {
+            const URL = `https://jsonplaceholder.typicode.com/users?_limit=10`
+            const response = await axios.get(URL);
+            this.users = response.data
+        } catch (error) {
+            console.log(error.message)
+        } 
+    },
+    registUser(user) {
+      this.users.push({
+        id: user[0],
+        username: user[1],
+        password: user[2]
+      })
     }
+  },
+  mounted() {
+    this.fetchUsers()
   }
 }
 

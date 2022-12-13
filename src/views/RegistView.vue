@@ -3,10 +3,13 @@
     <stylized-input
      type="text"
      placeholder="Введите логин..."
-     v-model="login"
-     @input="checkLoginFromDb"
+     v-model="username"
+     @input="checkUsernameFromDb"
     />
-    <span v-if="!loginIsUnique">{{attentionText}}</span>
+
+    <span v-if="!usernameIsUnique">Пользователь с таким ником уже существует</span>
+    <span v-if="(username.length < 4)">Длина должна быть больше 3 символов</span>
+
     <stylized-input
      type="password"
      placeholder="Введите пароль..."
@@ -19,52 +22,72 @@
     />
     <stylized-button
      @click="registUser"
-     v-if="passwordTrue"
-     :style="registBtn"
+     :style="passwordTrue"
     >
     Зарегистрироваться
     </stylized-button>
+    <router-link to="/auth">Уже есть аккаунт?</router-link>
   </form>
 </template>
 
 <script>
 export default {
+    props: {
+        users: {
+            required: true,
+            type: Array
+        }
+    },
     data() {
         return {
-            login: '',
+            username: '',
             password: '',
             repeatedPassword: '',
-            loginIsUnique: true,
-            registBtn: {
-                opacity: 1
-            },
-            attentionText: 'Пользователь с таким ником уже существует'
+            id: Math.round(10+Math.random()*10),
+            usernameIsUnique: true,
+            registBtn: {},
         }
     },
     computed: {
         passwordTrue() {
-            if (this.password == this.repeatedPassword) {
-                return this.registBtn.opacity = 1
+            if (this.password == this.repeatedPassword && this.password.length > 3 && this.username.length >= 3) {
+               return {
+                 opacity: "1"
+               }
             }
-            return this.registBtn.opacity = 0.3
+            return {
+                opacity: "0.3"
+            }
         },
-        
     },
     methods: {
-        registUser() {
-            // example code
-            console.log(this.login, this.password, this.repeatedPassword)
+        checkUsernameFromDb() {
+            if (this.users.length != 0) {
+                this.users.forEach(user => {
+                    if (user.username === this.username) {
 
-            // backend code
-        },
-        checkLoginFromDb() {
-            // example code
-            if (this.login != "aimixess" && this.login != "ramilka") {
-               return this.loginIsUnique = true
+                        // NEED TO FIX 
+                        
+                        console.log("WHY ISN'T IT WORKING!?")
+                        this.usernameIsUnique = false
+                        return false
+                    }
+                    
+                })
             }
-            this.loginIsUnique = false
-            
-            // backend code
+            // this.usernameIsUnique = true
+            return true 
+        },
+        registUser() {
+            if (this.checkUsernameFromDb() == true && this.password == this.repeatedPassword && this.password.length > 3 && this.username.length >= 3) {
+                this.$emit('registUser', [this.id, this.username, this.password])
+                this.id = Math.round(10+Math.random()*10)
+                this.username = ""
+                this.password = ""
+                this.repeatedPassword = ""
+                return
+            }
+            console.log('registration error')
         },
     },
 }
@@ -78,9 +101,10 @@ form {
     align-items: center;
     gap: 15px;
 }
+
 span {
     font-size: 12px;
     color: rgba(221, 3, 3, 0.646);
-    
+    font-weight: bold;
 }
 </style>

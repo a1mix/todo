@@ -38,6 +38,11 @@ import TodoList from '@/components/TodoList.vue';
 import ParamSelect from '@/components/UI/ParamSelect.vue';
 import axios from 'axios';
 export default {
+  props: {
+    currentUserId: {
+      required: true
+    }
+  },
   components: {
     TodoForm,
     TodoList,
@@ -53,7 +58,7 @@ export default {
       sortOptions: [
         {value: 'alphavet', name: "По алфавиту"}, 
         {value: 'length', name: "По длине"}
-      ]
+      ],
     }
   },
   methods: {
@@ -70,7 +75,8 @@ export default {
     async fetchTodos() {
       try {
         this.isTodosLoading = true;
-        const response = await axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10');
+        const URL = `https://jsonplaceholder.typicode.com/todos?userId=${this.currentUserId}`
+        const response = await axios.get(URL);
         this.list = response.data
         this.isTodosLoading = false;
       } catch (error) {

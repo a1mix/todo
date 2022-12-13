@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-   <h1>Это сайт с тудушками, написанный aimixess</h1>
+   <h1>Это сайт с тудушками, написанный <a href="https://github.com/a1mix">a1mix</a> и <a href="https://github.com/Ramilka234">Ramilka234</a></h1>
    <br>
    <a href="https://github.com/a1mix/todo">
     <svg xmlns="http://www.w3.org/2000/svg" width="80px" height="80px" viewBox="0 0 16 16" fill="currentColor">
@@ -21,5 +21,7 @@ export default {
 </script>
 
 <style scoped>
-
+a {
+  text-decoration: none;
+}
 </style>

@@ -3,45 +3,50 @@
     <stylized-input
      type="text"
      placeholder="Введите логин..."
-     v-model="login"
+     v-model="username"
     />
     <stylized-input
      type="password"
      placeholder="Введите пароль..."
      v-model="password"
     />
-   
-    <router-link to="/">
       <stylized-button
       @click="authUser"
       > 
         Войти
       </stylized-button>
-    </router-link>
-   
+    <span v-if="!isAuthTrue">Неправильный логин или пароль</span>
     <router-link to="/regist">Еще не зарегистрированы?</router-link>
   </form>
 </template>
 
 <script>
-import axios from 'axios';
 export default {
+  props: {
+    users: {
+      required: true,
+      type: Array
+    }
+  },
   data() {
     return {
       password: '',
-      login: '',
+      username: '',
+      isAuthTrue: true
     }
   },
   methods: {
-    // backend code
-
-    // async authUser() {
-    //   try {
-    //     this.$emit('authUser', [this.login, this.password])
-    //   } catch (e) {
-    //     console.log(e.message)
-    //   }
-    // }
+    authUser() {
+      this.users.forEach((user) => {
+        if (user.password  == this.password && user.username == this.username) {
+          this.$emit('authUser', user.id)
+          this.isAuthTrue = true
+          return 
+        }
+      })
+      console.log("auth error")
+      this.isAuthTrue = false
+    }
   }
 }
 </script>
@@ -53,5 +58,10 @@ form {
     justify-content: center;
     align-items: center;
     gap: 15px;
+}
+span {
+    font-size: 12px;
+    color: rgba(221, 3, 3, 0.646);
+    font-weight: bold;
 }
 </style>
