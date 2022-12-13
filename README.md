@@ -1,19 +1,15 @@
 # todo
 
-## Project setup
+## Для запуска проекта: 
+### 1. Клонируем репозиторий
+### 2. Устанавливаем нужные пакеты, прописав в терминале
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 3. Запуск проекта
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

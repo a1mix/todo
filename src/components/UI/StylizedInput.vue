@@ -1,5 +1,10 @@
 <template>
-  <input :value="modelValue" @input="updateInput" class="stylizedInput" type="text" >
+  <input
+   :value="modelValue"
+   @input="updateInput"
+   class="stylizedInput"
+   type="text" 
+  >
 </template>
 
 <script>

@@ -12,7 +12,6 @@
 </template>
 
 <script>
-
 export default {
     props: [],
     data() {
@@ -37,7 +36,6 @@ export default {
 </script>
 
 <style scoped>
-
 .todoForm { 
     display: flex;
     align-items: center;

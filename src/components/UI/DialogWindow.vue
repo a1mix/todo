@@ -1,23 +1,23 @@
 <template>
   <div v-if="show" @click.stop="hideDialog" class="dialogWindow">
-    <div @click.stop class="content"><slot class="dialogSlot"> </slot></div>
+    <div @click.stop class="content"><slot class="dialogSlot"></slot></div>
   </div>
 </template>
 
 <script>
 export default {
-name: 'dialog-window',
-props: {
-  show: {
-    type: Boolean,
-    default: false
+  name: 'dialog-window',
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    }
+  },
+  methods: {
+    hideDialog() {
+      this.$emit("update:show", false)
+    }
   }
-},
-methods: {
-  hideDialog() {
-    this.$emit("update:show", false)
-  }
-}
 }
 </script>
 
@@ -40,10 +40,7 @@ methods: {
   justify-content: center;
 
 }
-
 input {
   width: 90%;
 }
-
-
 </style>

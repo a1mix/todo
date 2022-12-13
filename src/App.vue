@@ -1,124 +1,84 @@
 <template>
-  <div class="container">
-    <h1>Это ваша страница с заметками!</h1>
-    <stylized-input
-      v-model="searchQuery"
-      placeholder="Search..."
-    />
-
-    <div class="app__btns">
-      <stylized-button
-        @click="showDialog"
-        > 
-        Добавить тудушку 
-      </stylized-button>
-      <!-- isn't working  -->
-      <param-select 
-        v-model="selectedSort"
-        :options="sortOptions"
-      />
-    </div>
-    
-    <dialog-window v-model:show="dialogVisible">
-      <todo-form @adding="addListItem"></todo-form>
-    </dialog-window>
-    <hr>
-    <todo-list 
-      :list="sortedAndSearchedTodos" 
-      @deleteTodo="deleteTodo"
-      v-if="!isTodosLoading"
-    />
-    <div v-else>Идет загрузка...</div>
-  </div>
+  <nav>
+    <router-link to="/">Главное</router-link>
+    <router-link v-if="isUserAuthorized" to="/todos">Задачи</router-link>
+    <router-link
+     v-if="!isUserAuthorized"
+     to="/auth"
+    >
+      Вход
+    </router-link>
+    <router-link to="/regist">Регистрация</router-link>
+    <router-link
+      v-if="isUserAuthorized"
+      class="exitBtn"
+      @click="userExit"
+      to="/auth"
+    >
+      Выйти
+    </router-link>
+  </nav>
+  <router-view @authUser="openTodos"/>
 </template>
 
 <script>
-import TodoForm from './components/TodoForm.vue';
-import TodoList from './components/TodoList.vue';
-import ParamSelect from './components/UI/ParamSelect.vue';
-import axios from 'axios';
 export default {
-  name: 'App',
-  components: {
-    TodoForm,
-    TodoList,
-    ParamSelect
-  },
   data() {
     return {
-      list: [],
-      dialogVisible: false,
-      isTodosLoading: true,
-      selectedSort: '',
-      searchQuery: '',
-      sortOptions: [
-        {value: 'alphavet', name: "По алфавиту"}, 
-        {value: 'length', name: "По длине"}
-      ]
+      isUserAuthorized: false
     }
   },
   methods: {
-    addListItem(todo) {
-      this.list.push(todo);
-      this.dialogVisible = false;
+    openTodos() {
+      this.isUserAuthorized = true
     },
-    deleteTodo(item) {
-      this.list = this.list.filter(p => p.id !== item.id)
-    },
-    showDialog() {
-      this.dialogVisible = true;
-    },
-    async fetchTodos() {
-      try {
-        this.isTodosLoading = true;
-        const response = await axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10');
-        this.list = response.data
-        this.isTodosLoading = false;
-      } catch (error) {
-        console.log(error.message)
-      } 
-    },
-  },
-  mounted() {
-    this.fetchTodos()
-  },
-  computed: {
-    sortedTodos() {
-      return [...this.list]
-    },
-    sortedAndSearchedTodos() { 
-      return this.sortedTodos.filter(todo => todo.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
+    userExit() {
+      this.isUserAuthorized = false
     }
-  },
-  watch: {
   }
 }
 
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-.container {
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: 500;
+#app {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-  padding: 20px;
-  width: 70%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 30px;
+  align-items: center;
 }
-.app__btns {
+
+nav {
+  padding: 20px 30px;
+  align-items: center;
+  background: #2e2e2e;
+  margin-bottom: 20px;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  gap: 20px;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+nav a.router-link-exact-active {
+  color: #974ae4;
+}
+
+.exitBtn {
+  margin-left: auto;
 }
 </style>
