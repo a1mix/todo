@@ -10,8 +10,16 @@
      placeholder="Введите пароль..."
      v-model="password"
     />
-    <stylized-button @click="authUser">Войти</stylized-button>
-    <router-link to="/regist">Еще не заргестрированы?</router-link>
+   
+    <router-link to="/">
+      <stylized-button
+      @click="authUser"
+      > 
+        Войти
+      </stylized-button>
+    </router-link>
+   
+    <router-link to="/regist">Еще не зарегистрированы?</router-link>
   </form>
 </template>
 
@@ -27,9 +35,6 @@ export default {
   methods: {
     async authUser() {
       try {
-        const responce = await axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
-        console.log(responce.data)
-        
         this.$emit('authUser', [this.login, this.password])
       } catch (e) {
         console.log(e.message)

@@ -41,13 +41,15 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -68,8 +70,8 @@ nav {
 }
 
 nav a {
-  font-weight: bold;
   color: #ffffff;
+  text-decoration: none;
 }
 
 nav a.router-link-exact-active {

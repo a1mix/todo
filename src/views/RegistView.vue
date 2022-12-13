@@ -45,6 +45,7 @@ export default {
         passwordTrue() {
             if (this.password == this.repeatedPassword) {
                 return this.registBtn.opacity = 1
+                
             }
             return this.registBtn.opacity = 0.3
         },
@@ -73,5 +74,10 @@ form {
     justify-content: center;
     align-items: center;
     gap: 15px;
+}
+span {
+    font-size: 12px;
+    color: rgba(221, 3, 3, 0.646);
+    
 }
 </style>
