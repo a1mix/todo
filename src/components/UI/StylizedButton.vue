@@ -17,6 +17,6 @@ export default {
 } 
 .stylizedButton:hover {
   background: rgba(136, 135, 135, 0.376);
-  transition: 0.2s ;
+  transition: 0.2s;
 }
 </style>

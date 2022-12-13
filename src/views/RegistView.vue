@@ -45,7 +45,6 @@ export default {
         passwordTrue() {
             if (this.password == this.repeatedPassword) {
                 return this.registBtn.opacity = 1
-                
             }
             return this.registBtn.opacity = 0.3
         },
@@ -53,9 +52,13 @@ export default {
     },
     methods: {
         registUser() {
+            // example code
             console.log(this.login, this.password, this.repeatedPassword)
+
+            // backend code
         },
         checkLoginFromDb() {
+            // example code
             if (this.login != "aimixess" && this.login != "ramilka") {
                return this.loginIsUnique = true
             }

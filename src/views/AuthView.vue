@@ -33,13 +33,15 @@ export default {
     }
   },
   methods: {
-    async authUser() {
-      try {
-        this.$emit('authUser', [this.login, this.password])
-      } catch (e) {
-        console.log(e.message)
-      }
-    }
+    // backend code
+
+    // async authUser() {
+    //   try {
+    //     this.$emit('authUser', [this.login, this.password])
+    //   } catch (e) {
+    //     console.log(e.message)
+    //   }
+    // }
   }
 }
 </script>
